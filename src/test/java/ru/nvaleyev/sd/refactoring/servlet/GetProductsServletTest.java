@@ -15,11 +15,6 @@ public class GetProductsServletTest extends BaseTest {
         assertEquals(OK_ADD, doAdd("lol2", "999"));
         assertEquals(OK_ADD, doAdd("lol3", "998"));
 
-        assertEquals("<html><body>\n" +
-                     "lol\t1000</br>\n" +
-                     "lol2\t999</br>\n" +
-                     "lol3\t998</br>\n" +
-                     "</body></html>\n",
-                doGet());
+        assertEqualsWithBody("lol\t1000</br>\nlol2\t999</br>\nlol3\t998</br>\n", doGet());
     }
 }

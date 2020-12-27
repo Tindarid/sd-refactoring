@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 public class QueryServletTest extends BaseTest {
     @Before
@@ -24,21 +23,21 @@ public class QueryServletTest extends BaseTest {
 
     @Test
     public void testCount() throws IOException {
-        assertEquals("<html><body>\nNumber of products: \n3\n</body></html>\n", doCommand("count"));
+        assertEqualsWithBody("Number of products: \n3\n", doCommand("count"));
     }
 
     @Test
     public void testMax() throws IOException {
-        assertEquals("<html><body>\n<h1>Product with max price: </h1>\nlol\t1000</br>\n</body></html>\n", doCommand("max"));
+        assertEqualsWithBody("<h1>Product with max price: </h1>\nlol\t1000</br>\n", doCommand("max"));
     }
 
     @Test
     public void testMin() throws IOException {
-        assertEquals("<html><body>\n<h1>Product with min price: </h1>\nlol3\t998</br>\n</body></html>\n", doCommand("min"));
+        assertEqualsWithBody("<h1>Product with min price: </h1>\nlol3\t998</br>\n", doCommand("min"));
     }
 
     @Test
     public void testSum() throws IOException {
-        assertEquals("<html><body>\nSummary price: \n2997\n</body></html>\n", doCommand("sum"));
+        assertEqualsWithBody("Summary price: \n2997\n", doCommand("sum"));
     }
 }

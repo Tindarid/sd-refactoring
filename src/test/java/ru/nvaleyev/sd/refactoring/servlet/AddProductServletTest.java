@@ -22,6 +22,6 @@ public class AddProductServletTest extends BaseTest {
     @Test
     public void testAddGet() throws IOException {
         assertEquals(OK_ADD, doAdd("kek", "999"));
-        assertEquals("<html><body>\nkek\t999</br>\n</body></html>\n", doGet());
+        assertEqualsWithBody("kek\t999</br>\n", doGet());
     }
 }

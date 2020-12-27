@@ -18,6 +18,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -95,5 +96,9 @@ public abstract class BaseTest {
         new QueryServlet().doGet(request, response);
 
         return writer.toString();
+    }
+
+    protected static void assertEqualsWithBody(String expected, String actual) {
+        assertEquals("<html><body>\n" + expected + "</body></html>\n", actual);
     }
 }
