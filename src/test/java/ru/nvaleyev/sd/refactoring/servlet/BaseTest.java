@@ -1,5 +1,7 @@
 package ru.nvaleyev.sd.refactoring.servlet;
 
+import ru.nvaleyev.sd.refactoring.database.ProductDatabase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -13,17 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public abstract class BaseTest {
-    private static final String DATABASE_NAME = "jdbc:sqlite:test.db";
+    private static final ProductDatabase database = new ProductDatabase("jdbc:sqlite:test.db");
 
     @Mock
     protected HttpServletRequest request;
@@ -38,25 +37,13 @@ public abstract class BaseTest {
     }
 
     @Before
-    public void createDatabase() throws SQLException {
-        String query = "CREATE TABLE IF NOT EXISTS PRODUCT" +
-                "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                " NAME           TEXT    NOT NULL, " +
-                " PRICE          INT     NOT NULL)";
-        sqlCall(query);
+    public void setUp() throws SQLException {
+        database.createIfNotExists();
     }
 
     @After
-    public void dropDatabase() throws SQLException {
-        sqlCall("DROP TABLE IF EXISTS PRODUCT");
-    }
-
-    protected void sqlCall(String query) throws SQLException {
-        try (Connection c = DriverManager.getConnection(DATABASE_NAME)) {
-            Statement stmt = c.createStatement();
-            stmt.executeUpdate(query);
-            stmt.close();
-        }
+    public void tearDown() throws SQLException {
+        database.drop();
     }
 
     protected static final String OK_ADD = "OK\n";
