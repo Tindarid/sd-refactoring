@@ -31,15 +31,10 @@ public abstract class BaseTest {
     @Mock
     protected HttpServletResponse response;
 
-    private StringWriter writer;
-
-    protected void setUpResponseMock() throws IOException {
-        writer = new StringWriter();
+    protected StringWriter setUpResponseMock() throws IOException {
+        StringWriter writer = new StringWriter();
         when(response.getWriter()).thenReturn(new PrintWriter(writer));
-    }
-
-    protected String getResponses() {
-        return writer.toString();
+        return writer;
     }
 
     @Before
@@ -67,9 +62,7 @@ public abstract class BaseTest {
     protected static final String OK_ADD = "OK\n";
 
     protected String doAdd(String name, String price) throws IOException {
-        StringWriter writer = new StringWriter();
-
-        when(response.getWriter()).thenReturn(new PrintWriter(writer));
+        StringWriter writer = setUpResponseMock();
         when(request.getParameter("name")).thenReturn(name);
         when(request.getParameter("price")).thenReturn(price);
 
@@ -79,8 +72,7 @@ public abstract class BaseTest {
     }
 
     protected String doGet() throws IOException {
-        StringWriter writer = new StringWriter();
-        when(response.getWriter()).thenReturn(new PrintWriter(writer));
+        StringWriter writer = setUpResponseMock();
 
         new GetProductsServlet().doGet(request, response);
 
@@ -88,9 +80,7 @@ public abstract class BaseTest {
     }
 
     protected String doCommand(String command) throws IOException {
-        StringWriter writer = new StringWriter();
-        when(response.getWriter()).thenReturn(new PrintWriter(writer));
-
+        StringWriter writer = setUpResponseMock();
         when(request.getParameter("command")).thenReturn(command);
 
         new QueryServlet().doGet(request, response);
