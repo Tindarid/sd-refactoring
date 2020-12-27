@@ -85,4 +85,15 @@ public abstract class BaseTest {
 
         return writer.toString();
     }
+
+    protected String doCommand(String command) throws IOException {
+        StringWriter writer = new StringWriter();
+        when(response.getWriter()).thenReturn(new PrintWriter(writer));
+
+        when(request.getParameter("command")).thenReturn(command);
+
+        new QueryServlet().doGet(request, response);
+
+        return writer.toString();
+    }
 }
