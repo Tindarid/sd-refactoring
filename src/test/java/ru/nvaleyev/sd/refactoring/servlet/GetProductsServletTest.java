@@ -5,31 +5,17 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 public class GetProductsServletTest extends BaseTest {
     private static final GetProductsServlet servlet = new GetProductsServlet();
 
-    private void setUpRequestMock(String name, String price) {
-        when(request.getParameter("name")).thenReturn(name);
-        when(request.getParameter("price")).thenReturn(price);
-    }
-
     @Test
     public void testGet() throws IOException {
         setUpResponseMock();
-        AddProductServlet addServlet = new AddProductServlet();
 
-        setUpRequestMock("lol", "1000");
-        addServlet.doGet(request, response);
-
-        setUpRequestMock("lol2", "999");
-        addServlet.doGet(request, response);
-
-        setUpRequestMock("lol3", "998");
-        addServlet.doGet(request, response);
-
-        assertEquals("OK\nOK\nOK\n", getResponses());
+        assertEquals(OK_ADD, doAdd("lol", "1000"));
+        assertEquals(OK_ADD, doAdd("lol2", "999"));
+        assertEquals(OK_ADD, doAdd("lol3", "998"));
 
         setUpResponseMock();
         servlet.doGet(request, response);

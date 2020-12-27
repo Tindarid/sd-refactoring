@@ -11,30 +11,15 @@ import static org.mockito.Mockito.when;
 public class QueryServletTest extends BaseTest {
     private static final QueryServlet servlet = new QueryServlet();
 
-    private void setUpAddRequestMock(String name, String price) {
-        when(request.getParameter("name")).thenReturn(name);
-        when(request.getParameter("price")).thenReturn(price);
-    }
-
     private void setUpQueryRequestMock(String command) {
         when(request.getParameter("command")).thenReturn(command);
     }
 
     @Before
     public void setUp() throws IOException {
-        setUpResponseMock();
-        AddProductServlet addServlet = new AddProductServlet();
-
-        setUpAddRequestMock("lol", "1000");
-        addServlet.doGet(request, response);
-
-        setUpAddRequestMock("lol2", "999");
-        addServlet.doGet(request, response);
-
-        setUpAddRequestMock("lol3", "998");
-        addServlet.doGet(request, response);
-
-        assertEquals("OK\nOK\nOK\n", getResponses());
+        assertEquals(OK_ADD, doAdd("lol", "1000"));
+        assertEquals(OK_ADD, doAdd("lol2", "999"));
+        assertEquals(OK_ADD, doAdd("lol3", "998"));
     }
 
     @Test

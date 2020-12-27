@@ -62,4 +62,18 @@ public abstract class BaseTest {
             stmt.close();
         }
     }
+
+    protected static final String OK_ADD = "OK\n";
+
+    protected String doAdd(String name, String price) throws IOException {
+        StringWriter writer = new StringWriter();
+
+        when(response.getWriter()).thenReturn(new PrintWriter(writer));
+        when(request.getParameter("name")).thenReturn(name);
+        when(request.getParameter("price")).thenReturn(price);
+
+        new AddProductServlet().doGet(request, response);
+
+        return writer.toString();
+    }
 }
