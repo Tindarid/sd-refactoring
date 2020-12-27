@@ -76,4 +76,13 @@ public abstract class BaseTest {
 
         return writer.toString();
     }
+
+    protected String doGet() throws IOException {
+        StringWriter writer = new StringWriter();
+        when(response.getWriter()).thenReturn(new PrintWriter(writer));
+
+        new GetProductsServlet().doGet(request, response);
+
+        return writer.toString();
+    }
 }
