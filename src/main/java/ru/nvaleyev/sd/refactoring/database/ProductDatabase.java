@@ -9,15 +9,19 @@ public class ProductDatabase {
         this.name = name;
     }
 
-    public void sqlUpdate(String query) throws SQLException {
-        try (Connection c = DriverManager.getConnection(name)) {
-            Statement stmt = c.createStatement();
-            stmt.executeUpdate(query);
-            stmt.close();
+    public void sqlUpdate(String query) {
+        try {
+            try (Connection c = DriverManager.getConnection(name)) {
+                Statement stmt = c.createStatement();
+                stmt.executeUpdate(query);
+                stmt.close();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void createIfNotExists() throws SQLException {
+    public void createIfNotExists() {
         String query = "CREATE TABLE IF NOT EXISTS PRODUCT " +
                 "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 " NAME           TEXT    NOT NULL, " +
@@ -25,7 +29,7 @@ public class ProductDatabase {
         sqlUpdate(query);
     }
 
-    public void drop() throws SQLException {
+    public void drop() {
         sqlUpdate("DROP TABLE IF EXISTS PRODUCT");
     }
 }

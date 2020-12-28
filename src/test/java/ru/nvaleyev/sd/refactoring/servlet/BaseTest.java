@@ -37,12 +37,12 @@ public abstract class BaseTest {
     }
 
     @Before
-    public void setUp() throws SQLException {
+    public void setUp() {
         database.createIfNotExists();
     }
 
     @After
-    public void tearDown() throws SQLException {
+    public void tearDown() {
         database.drop();
     }
 
