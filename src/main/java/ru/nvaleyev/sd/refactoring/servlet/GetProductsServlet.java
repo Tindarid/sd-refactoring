@@ -15,9 +15,7 @@ public class GetProductsServlet extends BaseServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGetInternal(HttpServletRequest request, HttpServletResponse response) {
         database.sqlQueryWithPrinter("SELECT * FROM PRODUCT", new PrintAll(response));
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
     }
 }

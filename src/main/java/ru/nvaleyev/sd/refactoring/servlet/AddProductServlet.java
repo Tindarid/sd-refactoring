@@ -16,13 +16,9 @@ public class AddProductServlet extends BaseServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGetInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Product product = new Product(request);
-
         database.sqlUpdate("INSERT INTO PRODUCT (NAME, PRICE) VALUES " + product.toSql());
-
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().println("OK");
     }
 }

@@ -17,7 +17,7 @@ public class QueryServlet extends BaseServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGetInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String command = request.getParameter("command");
 
         if ("max".equals(command)) {
@@ -35,9 +35,6 @@ public class QueryServlet extends BaseServlet {
         } else {
             response.getWriter().println("Unknown command: " + command);
         }
-
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
     }
 
 }
