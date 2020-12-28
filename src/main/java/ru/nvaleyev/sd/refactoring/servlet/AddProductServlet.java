@@ -1,6 +1,7 @@
 package ru.nvaleyev.sd.refactoring.servlet;
 
 import ru.nvaleyev.sd.refactoring.database.ProductDatabase;
+import ru.nvaleyev.sd.refactoring.product.Product;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +17,9 @@ public class AddProductServlet extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String name = request.getParameter("name");
-        long price = Long.parseLong(request.getParameter("price"));
+        Product product = new Product(request);
 
-        database.sqlUpdate("INSERT INTO PRODUCT (NAME, PRICE) VALUES (\"" + name + "\"," + price + ")");
+        database.sqlUpdate("INSERT INTO PRODUCT (NAME, PRICE) VALUES " + product.toSql());
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);

@@ -1,6 +1,7 @@
 package ru.nvaleyev.sd.refactoring.servlet;
 
 import ru.nvaleyev.sd.refactoring.database.ProductDatabase;
+import ru.nvaleyev.sd.refactoring.product.Product;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,9 +28,7 @@ public class GetProductsServlet extends BaseServlet {
                 response.getWriter().println("<html><body>");
 
                 while (rs.next()) {
-                    String  name = rs.getString("name");
-                    int price  = rs.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
+                    response.getWriter().println(new Product(rs).toHtml());
                 }
                 response.getWriter().println("</body></html>");
 
