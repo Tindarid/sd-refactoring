@@ -53,7 +53,7 @@ public abstract class BaseTest {
         when(request.getParameter("name")).thenReturn(name);
         when(request.getParameter("price")).thenReturn(price);
 
-        new AddProductServlet().doGet(request, response);
+        new AddProductServlet(database).doGet(request, response);
 
         return writer.toString();
     }
@@ -61,7 +61,7 @@ public abstract class BaseTest {
     protected String doGet() throws IOException {
         StringWriter writer = setUpResponseMock();
 
-        new GetProductsServlet().doGet(request, response);
+        new GetProductsServlet(database).doGet(request, response);
 
         return writer.toString();
     }
@@ -70,7 +70,7 @@ public abstract class BaseTest {
         StringWriter writer = setUpResponseMock();
         when(request.getParameter("command")).thenReturn(command);
 
-        new QueryServlet().doGet(request, response);
+        new QueryServlet(database).doGet(request, response);
 
         return writer.toString();
     }

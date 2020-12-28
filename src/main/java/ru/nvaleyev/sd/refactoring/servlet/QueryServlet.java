@@ -1,6 +1,7 @@
 package ru.nvaleyev.sd.refactoring.servlet;
 
-import javax.servlet.http.HttpServlet;
+import ru.nvaleyev.sd.refactoring.database.ProductDatabase;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,7 +13,11 @@ import java.sql.Statement;
 /**
  * @author akirakozov
  */
-public class QueryServlet extends HttpServlet {
+public class QueryServlet extends BaseServlet {
+    public QueryServlet(ProductDatabase database) {
+        super(database);
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String command = request.getParameter("command");
