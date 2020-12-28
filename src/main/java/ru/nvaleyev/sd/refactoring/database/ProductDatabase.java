@@ -9,7 +9,7 @@ public class ProductDatabase {
         this.name = name;
     }
 
-    public void sqlCall(String query) throws SQLException {
+    public void sqlUpdate(String query) throws SQLException {
         try (Connection c = DriverManager.getConnection(name)) {
             Statement stmt = c.createStatement();
             stmt.executeUpdate(query);
@@ -22,10 +22,10 @@ public class ProductDatabase {
                 "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 " NAME           TEXT    NOT NULL, " +
                 " PRICE          INT     NOT NULL)";
-        sqlCall(query);
+        sqlUpdate(query);
     }
 
     public void drop() throws SQLException {
-        sqlCall("DROP TABLE IF EXISTS PRODUCT");
+        sqlUpdate("DROP TABLE IF EXISTS PRODUCT");
     }
 }

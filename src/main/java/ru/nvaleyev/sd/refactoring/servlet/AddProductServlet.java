@@ -20,7 +20,7 @@ public class AddProductServlet extends BaseServlet {
         long price = Long.parseLong(request.getParameter("price"));
 
         try {
-            database.sqlCall("INSERT INTO PRODUCT (NAME, PRICE) VALUES (\"" + name + "\"," + price + ")");
+            database.sqlUpdate("INSERT INTO PRODUCT (NAME, PRICE) VALUES (\"" + name + "\"," + price + ")");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
