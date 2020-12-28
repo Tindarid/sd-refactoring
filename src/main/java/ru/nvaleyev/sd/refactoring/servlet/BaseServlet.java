@@ -1,6 +1,7 @@
 package ru.nvaleyev.sd.refactoring.servlet;
 
 import ru.nvaleyev.sd.refactoring.database.ProductDatabase;
+import ru.nvaleyev.sd.refactoring.html.HtmlUtils;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ public abstract class BaseServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         doGetInternal(request, response);
-        response.setContentType("text/html");
+        response.setContentType(HtmlUtils.getContentType());
         response.setStatus(HttpServletResponse.SC_OK);
     }
 

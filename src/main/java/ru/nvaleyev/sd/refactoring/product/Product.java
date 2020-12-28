@@ -1,5 +1,7 @@
 package ru.nvaleyev.sd.refactoring.product;
 
+import ru.nvaleyev.sd.refactoring.html.HtmlUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +21,7 @@ public class Product {
     }
 
     public String toHtml() {
-        return name + "\t" + price + "</br>";
+        return HtmlUtils.withBr(name + "\t" + price);
     }
 
     public String toSql() {

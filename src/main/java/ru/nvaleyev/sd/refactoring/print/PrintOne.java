@@ -1,7 +1,10 @@
 package ru.nvaleyev.sd.refactoring.print;
 
+import ru.nvaleyev.sd.refactoring.html.HtmlUtils;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,13 +18,15 @@ public class PrintOne implements PrintMethod {
     }
 
     public void print(ResultSet rs) throws IOException, SQLException {
-        response.getWriter().println("<html><body>");
-        response.getWriter().println(header);
+        PrintWriter writer = response.getWriter();
 
-        if (rs.next()) {
-            response.getWriter().println(rs.getInt(1));
+        writer.println(HtmlUtils.bodyHeader());
+        writer.println(header);
+
+        while (rs.next()) {
+            writer.println(rs.getInt(1));
         }
 
-        response.getWriter().println("</body></html>");
+        writer.println(HtmlUtils.bodyFooter());
     }
 }

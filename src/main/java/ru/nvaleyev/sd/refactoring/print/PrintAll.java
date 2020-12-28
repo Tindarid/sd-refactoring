@@ -1,9 +1,11 @@
 package ru.nvaleyev.sd.refactoring.print;
 
+import ru.nvaleyev.sd.refactoring.html.HtmlUtils;
 import ru.nvaleyev.sd.refactoring.product.Product;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -22,16 +24,18 @@ public class PrintAll implements PrintMethod {
     }
 
     public void print(ResultSet rs) throws IOException, SQLException {
-        response.getWriter().println("<html><body>");
+        PrintWriter writer = response.getWriter();
+
+        writer.println(HtmlUtils.bodyHeader());
 
         if (this.header != null) {
-            response.getWriter().println(header);
+            writer.println(header);
         }
 
         while (rs.next()) {
-            response.getWriter().println(new Product(rs).toHtml());
+            writer.println(new Product(rs).toHtml());
         }
 
-        response.getWriter().println("</body></html>");
+        writer.println(HtmlUtils.bodyFooter());
     }
 }

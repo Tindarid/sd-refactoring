@@ -1,6 +1,7 @@
 package ru.nvaleyev.sd.refactoring.servlet;
 
 import ru.nvaleyev.sd.refactoring.database.ProductDatabase;
+import ru.nvaleyev.sd.refactoring.html.HtmlUtils;
 import ru.nvaleyev.sd.refactoring.print.PrintAll;
 import ru.nvaleyev.sd.refactoring.print.PrintOne;
 
@@ -22,10 +23,10 @@ public class QueryServlet extends BaseServlet {
 
         if ("max".equals(command)) {
             database.sqlQueryWithPrinter("SELECT * FROM PRODUCT ORDER BY PRICE DESC LIMIT 1",
-                    new PrintAll(response, "<h1>Product with max price: </h1>"));
+                    new PrintAll(response, HtmlUtils.makeHeader("Product with max price: ")));
         } else if ("min".equals(command)) {
             database.sqlQueryWithPrinter("SELECT * FROM PRODUCT ORDER BY PRICE LIMIT 1",
-                    new PrintAll(response, "<h1>Product with min price: </h1>"));
+                    new PrintAll(response, HtmlUtils.makeHeader("Product with min price: ")));
         } else if ("sum".equals(command)) {
             database.sqlQueryWithPrinter("SELECT SUM(price) FROM PRODUCT",
                     new PrintOne(response, "Summary price: "));
